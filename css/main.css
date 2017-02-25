@@ -1,10 +1,19 @@
+body {
+  margin: 0;
+}
 .header {
   /*background-color: #48d75f;*/
   border-bottom: 1px rgb(184, 184, 184) solid;
+  font-family: 'Fredoka One', cursive;
+  font-size: 12px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+
 }
 
 canvas {
-  width: 40%;
+  width: 400px;
   display: inline-block;
 }
 .CodeMirror {
