@@ -1,5 +1,5 @@
 var editor = CodeMirror(document.body, {
-  value: "ctx.rect(20,20,100,100);\nctx.stroke();",
+  value: 'ctx.beginPath();\nctx.lineWidth="10";\nctx.strokeStyle="blue";\nctx.rect(50,50,80,80);\nctx.stroke();',
   mode:  "javascript",
   lineNumbers: "true",
   tabSize: "2"
