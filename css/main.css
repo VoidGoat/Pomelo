@@ -13,9 +13,11 @@ body {
 }
 
 canvas {
-  width: 400px;
+  width: 500px;
   display: inline-block;
+  border:1px solid #eee;
 }
+
 .CodeMirror {
   border: 1px solid #eee;
   /*height: auto;*/
