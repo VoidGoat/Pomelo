@@ -13,13 +13,20 @@ body {
 }
 
 canvas {
+<<<<<<< Updated upstream
   width: 500px;
   display: inline-block;
   border:1px solid #eee;
+=======
+  display: inline-block;
+  border: 1px solid #eee;
+
+>>>>>>> Stashed changes
 }
 
 .CodeMirror {
   border: 1px solid #eee;
+
   /*height: auto;*/
   width: 40%;
   height: 400px;
