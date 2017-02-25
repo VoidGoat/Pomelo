@@ -1,0 +1,20 @@
+.header {
+  /*background-color: #48d75f;*/
+  border-bottom: 1px rgb(184, 184, 184) solid;
+}
+
+canvas {
+  width: 40%;
+  display: inline-block;
+}
+.CodeMirror {
+  border: 1px solid #eee;
+  /*height: auto;*/
+  width: 40%;
+  height: 400px;
+  display: inline-block;
+}
+
+.text-box {
+  width: 40%;
+}

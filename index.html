@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pomelo</title>
+  <script src="js/codemirror.js"></script>
+  <link rel="stylesheet" href="css/codemirror.css">
+  <script src="mode/javascript/javascript.js"></script>
+  <script src="js/jQuery.js"></script>
+  <link rel="stylesheet" href="main.css">
+
+</head>
+
+<body>
+  <header class="header">
+    Pomelo
+
+  </header>
+
+  <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;">
+  </canvas>
+  <script src="js/editor.js"></script>
+
+
+  <input name="buttonExecute" onclick="try { eval(editor.getValue());  } catch (e) { if (e instanceof SyntaxError) { console.log(e.message);}}" type="button" value="Execute" />
+  <div id="debugDiv">
+aaa
+  </div>
+
+</body>
+
+<script src="canvas.js"></script>
+
+</html>
