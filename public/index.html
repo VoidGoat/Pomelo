@@ -26,32 +26,48 @@
 <body>
   <header id="header"></header>
 
-  <section class="lesson-link" style="background-color: #47c892">
-    <a href="#" style="text-decoration: none; color: black;">
+  <section id="create-button" class="lesson-link" style="background-color: #47c892; cursor: pointer;" onclick="addCreateLessonBox()">
       <img src="images/plussign.png">
       <p align="center" style="margin-top: 0; padding-bottom: 5px; color: white;">Create A Lesson!</p>
 
-    </a>
   </section>
 
-  <section class="lesson-link">
+  <section class="lesson-link" >
     <a href="#" style="text-decoration: none; color: black;">
       <img src="http://placehold.it/250x100">
       <p align="center" style="margin-top: 0; padding-bottom: 5px">Lesson 1: Drawing On the Canvas</p>
     </a>
   </section>
   <section class="lesson-link">
-    <a href="index.html" style="text-decoration: none; color: black;">
+    <a href="editor.html" style="text-decoration: none; color: black;">
       <img src="http://placehold.it/250x100">
       <p align="center" style="margin-top: 0; padding-bottom: 5px">Lesson 1: Drawing On the Canvas</p>
     </a>
   </section>
-  <script type="text/javascript">
-    function createLesson() {
-      firebase.database().ref("test").set({
-        "hello": "hello"
-      });
 
+<!-- <div class="create-list">
+  <h3 align="center">Name your Lesson</h3>
+  <p onclick="$("#create-dialog").remove()">Close</p>
+  <input type="text" id="create-text-box" name="fname" style="width: 90%; margin-left: calc(5% ); font-size: 30px; ">
+  <input name="buttonCreateList" onclick="createLesson()" type="button" value="Create Lesson" style="margin-left: calc(50% - 82px)" class="button"/>
+
+</div> -->
+  <script type="text/javascript">
+  var a = "hey"
+  var id = "#create-dialog";
+
+
+    function addCreateLessonBox() {
+      $("body").append('<div id="create-dialog" class="create-list"><h3 align="center">Name your Lesson</h3><button type="button" onclick="closeDialogue()">Close</button><input type="text" id="create-text-box" name="fname" style="width: 90%; margin-left: calc(5% ); font-size: 30px; "><input name="buttonCreateList" onclick="createLesson()" type="button" value="Create Lesson" style="margin-left: calc(50% - 82px)" class="button"/></div>')
+    }
+    function createLesson() {
+      // firebase.database().ref().push().key
+      firebase.database().ref(firebase.database().ref().push().key).set({
+        "title": $("#create-text-box").val()
+      })
+    }
+    function closeDialogue() {
+      $(id).remove()
     }
   </script>
 

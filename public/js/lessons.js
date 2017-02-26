@@ -28,7 +28,9 @@ function moveLessonBack() {
 }
 function updatePage() {
   clearCanvas();
+
   $( "#instructions" ).html(lessons.GamesWithJS[lessonIndex].text);
   editor.setValue(lessons.GamesWithJS[lessonIndex].code);
   $("#lessonCounter").html(lessonIndex + 1);
+  executeCode();
 }

@@ -1,3 +1,6 @@
 $("#header").append(HTMLHeaderBar);
-$("#canvas").append(HTMLCanvas);
 // $("#header").append(HTMLHeaderBar);
+
+if ($("#myCanvas").length) {
+  executeCode();
+}

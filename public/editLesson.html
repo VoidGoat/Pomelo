@@ -8,6 +8,7 @@
   <script src="mode/javascript/javascript.js"></script>
   <script src="js/jQuery.js"></script>
   <script type="text/javascript" src="js/lessons.js"></script>
+  <script type="text/javascript" src="js/helper.js"></script>
 
 
   <link rel="stylesheet" href="css/codemirror.css">
@@ -18,29 +19,34 @@
 </head>
 
 <body>
-  <header class="header">
+  <!-- <header class="header">
     <h1 style="margin-top:inherit; margin-bottom: inherit; display: inline-block">Pomelo</h1>
     <hr style="display: inline-block; width:calc(100% - 100px); border: 1px #ee7a63 solid; border-radius: 5px; margin-top: 0; margin-bottom: 0px;" />
-  </header>
+  </header> -->
+  <header id="header"></header>
 
+  <!-- add canvas for drawing -->
   <canvas id="myCanvas" width="500" height="400"></canvas>
   <script src="js/canvas.js"></script>
 
+  <!--add code editor  -->
   <script src="js/editor.js"></script>
 
 
   <div id="controlbar">
     <input name="buttonExecute" onclick="executeCode()" type="button" value="▶ Run" class="button"/>
-    <input name="buttonBack" onclick="moveLessonBack()" type="button" value="<" class="button"/>
+    <input name="buttonExecute" onclick="moveLessonBack()" type="button" value="<" class="button"/>
     <span id="lessonCounter">1</span>
-    <input name="buttonForward" onclick="moveLessonForward()" type="button" value=">" class="button"/>
+    <input name="buttonExecute" onclick="moveLessonForward()" type="button" value=">" class="button"/>
   </div>
 
-  <div id="instructions" class="">
-    TEST INSTRUCTIONS
-  </div>
+
+  <textarea id="instructions" class="edit-instructions"></textarea>
 
 </body>
+
+<script type="text/javascript" src="js/pagesetup.js"></script>
+
 <script>
   $( "#instructions" ).html(lessons.GamesWithJS[0].text);
 </script>
