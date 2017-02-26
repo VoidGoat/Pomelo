@@ -4,14 +4,18 @@
   <meta charset="UTF-8">
   <title>Pomelo</title>
 
+  <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
+  <script src="js/initFirebase.js"></script>
+
   <script src="js/codemirror.js"></script>
   <script src="mode/javascript/javascript.js"></script>
   <script src="js/jQuery.js"></script>
   <script type="text/javascript" src="js/lessons.js"></script>
   <script type="text/javascript" src="js/helper.js"></script>
-
-
   <link rel="stylesheet" href="css/codemirror.css">
+
   <link rel="stylesheet" href="css/main.css">
   <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -38,6 +42,11 @@
     <input name="buttonExecute" onclick="moveLessonBack()" type="button" value="<" class="button"/>
     <span id="lessonCounter">1</span>
     <input name="buttonExecute" onclick="moveLessonForward()" type="button" value=">" class="button"/>
+
+  </div>
+
+  <div style="position: absolute; right: 50px; top: 350px;">
+    <input name="buttonSwap" onclick="swapCode()" type="button" value="Swap" class="button"/>
   </div>
 
 
@@ -48,7 +57,45 @@
 <script type="text/javascript" src="js/pagesetup.js"></script>
 
 <script>
-  $( "#instructions" ).html(lessons.GamesWithJS[0].text);
+
+  if (parseURLParams(window.location.href) === undefined) {
+
+  } else {
+    var key = parseURLParams(window.location.href).key[0];
+  }
+  var title;
+  var visibleCode;
+  var backendCode;
+  firebase.database().ref(key).once('value').then(function(snapshot) {
+    title = snapshot.val().title;
+
+    visibleCode = snapshot.val().visibleCode;
+    editor.setValue(visibleCode);
+
+    backendCode = snapshot.val().backendCode;
+
+    $( "#instructions" ).html(title);
+    executeCode();
+  });
+
+
+
+  var displayingFrontend = true;
+
+  function swapCode() {
+    if (displayingFrontend) {
+      firebase.database().ref(key).update({ "visibleCode": editor.getValue()})
+      visibleCode = editor.getValue();
+      editor.setValue(backendCode)
+      displayingFrontend = false;
+    } else {
+      firebase.database().ref(key).update({ "backendCode": editor.getValue()})
+      backendCode = editor.getValue();
+      editor.setValue(visibleCode);
+      displayingFrontend = true;
+    }
+
+  }
 </script>
 
 

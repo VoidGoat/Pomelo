@@ -14,7 +14,3 @@ console.log(app.name);  // "[DEFAULT]"
 
 // You can retrieve services via the defaultApp variable...
 var defaultDatabase = app.database();
-
-firebase.database().ref("test").set({
-  "hello": "hello"
-});

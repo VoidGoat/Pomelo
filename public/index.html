@@ -6,7 +6,7 @@
   <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
-  <script src="js/test.js"></script>
+  <script src="js/initFirebase.js"></script>
 
 
 
@@ -32,39 +32,41 @@
 
   </section>
 
-  <section class="lesson-link" >
-    <a href="#" style="text-decoration: none; color: black;">
+  <!-- <section class="lesson-link">
+    <a href="editLesson.html?key=%%key%%" style="text-decoration: none; color: black;">
       <img src="http://placehold.it/250x100">
       <p align="center" style="margin-top: 0; padding-bottom: 5px">Lesson 1: Drawing On the Canvas</p>
     </a>
-  </section>
-  <section class="lesson-link">
-    <a href="editor.html" style="text-decoration: none; color: black;">
-      <img src="http://placehold.it/250x100">
-      <p align="center" style="margin-top: 0; padding-bottom: 5px">Lesson 1: Drawing On the Canvas</p>
-    </a>
-  </section>
+  </section> -->
+  <!-- '<section class="lesson-link"><a href="editLesson.html?key=%%key%%" style="text-decoration: none; color: black;"><img src="http://placehold.it/250x100"><p align="center" style="margin-top: 0; padding-bottom: 5px">Lesson 1: Drawing On the Canvas</p></a></section>' -->
 
 <!-- <div class="create-list">
   <h3 align="center">Name your Lesson</h3>
-  <p onclick="$("#create-dialog").remove()">Close</p>
+  <p onclick="$("#create-dialog").remove()" style="position: absolute; top: 0;">Close</p>
   <input type="text" id="create-text-box" name="fname" style="width: 90%; margin-left: calc(5% ); font-size: 30px; ">
   <input name="buttonCreateList" onclick="createLesson()" type="button" value="Create Lesson" style="margin-left: calc(50% - 82px)" class="button"/>
 
 </div> -->
   <script type="text/javascript">
-  var a = "hey"
-  var id = "#create-dialog";
+    var a = "hey"
+    var id = "#create-dialog";
 
+    var retrievedLessons = firebase.database().ref().orderByKey();
+    console.log(retrievedLessons[0].val());
 
     function addCreateLessonBox() {
-      $("body").append('<div id="create-dialog" class="create-list"><h3 align="center">Name your Lesson</h3><button type="button" onclick="closeDialogue()">Close</button><input type="text" id="create-text-box" name="fname" style="width: 90%; margin-left: calc(5% ); font-size: 30px; "><input name="buttonCreateList" onclick="createLesson()" type="button" value="Create Lesson" style="margin-left: calc(50% - 82px)" class="button"/></div>')
+      $("body").append('<div id="create-dialog" class="create-list"><h3 align="center">Name your Lesson</h3><button type="button" onclick="closeDialogue()" style="position: absolute; top: 0; right: 0; border: 0; background-color: white; cursor: pointer; color: gray;">Close</button><input type="text" id="create-text-box" name="fname" style="width: 90%; margin-left: calc(5% ); font-size: 30px; "><input name="buttonCreateList" onclick="createLesson()" type="button" value="Create Lesson" style="margin-left: calc(50% - 82px)" class="button"/></div>')
     }
+
+
     function createLesson() {
-      // firebase.database().ref().push().key
-      firebase.database().ref(firebase.database().ref().push().key).set({
-        "title": $("#create-text-box").val()
+      var key = firebase.database().ref().push().key;
+      firebase.database().ref(key).set({
+        "title": $("#create-text-box").val(),
+        "visibleCode": "//this is the code visible to a user",
+        "backendCode": 'console.log("its working")'
       })
+      location.href = "editLesson.html?key=" + key;
     }
     function closeDialogue() {
       $(id).remove()

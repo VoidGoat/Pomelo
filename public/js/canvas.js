@@ -5,7 +5,13 @@ var ctx = canvas.getContext("2d");
 function executeCode() {
   try {
     clearCanvas();
-    eval(editor.getValue());
+    if (displayingFrontend) {
+      eval(editor.getValue());
+      eval(backendCode);
+    } else {
+      eval(editor.getValue());
+      eval(visibleCode);
+    }
   } catch (e) {
     if (e instanceof SyntaxError) {
       console.log(e.message);
