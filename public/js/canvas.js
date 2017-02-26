@@ -4,13 +4,17 @@ var ctx = canvas.getContext("2d");
 
 function executeCode() {
   try {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    clearCanvas();
     eval(editor.getValue());
   } catch (e) {
     if (e instanceof SyntaxError) {
       console.log(e.message);
     }
   }
+}
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 }
 
 canvas.addEventListener("mousedown", getPosition, false);

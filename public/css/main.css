@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+.header {
+  /*color: #47c892;*/
+  color: #ee7a63;
+  border-bottom: 1px rgb(184, 184, 184) solid;
+  font-family: 'Fredoka One', cursive;
+  font-size: 12px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+
+}
+
+
+canvas {
+  display: inline-block;
+  border:1px solid #eee;
+}
+#controlbar {
+  background-color: #47c892;
+  color: white;
+  font-family: 'Fredoka One', cursive;
+}
+#instructions {
+  font-size: 25px;
+
+}
+
+.CodeMirror {
+  border: 1px solid #eee;
+
+  /*height: auto;*/
+  width: calc(100% - 510px);
+  height: 400px;
+  display: inline-block;
+}
+
+.text-box {
+  width: 40%;
+}
+
+.button {
+  margin: 5px;
+  font-size: 25px;
+  cursor: pointer;
+  background-color: #47c892;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.3s;
+
+}
+.button:hover {
+  background-color: rgb(46, 142, 102);
+}
+
+.lesson-link {
+  margin: 30px;
+  width: 250px;
+  height: 150px;
+  box-shadow: 1px 1px 5px #888888;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+}
+.lesson-link:hover {
+  text-decoration: none;
+  transform: scale(1.02);
+
+}
