@@ -8,12 +8,13 @@
   <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
   <script src="js/initFirebase.js"></script>
+  <script type="text/javascript" src="js/helper.js"></script>
 
   <script src="js/codemirror.js"></script>
   <script src="mode/javascript/javascript.js"></script>
   <script src="js/jQuery.js"></script>
+
   <script type="text/javascript" src="js/lessons.js"></script>
-  <script type="text/javascript" src="js/helper.js"></script>
   <link rel="stylesheet" href="css/codemirror.css">
 
   <link rel="stylesheet" href="css/main.css">
@@ -35,17 +36,18 @@
 
   <!--add code editor  -->
   <script src="js/editor.js"></script>
+  <p id="code-identifier" style="position: absolute; right: 0; top: 30px; color: #47c892;">Visible Code</p>
 
 
   <div id="controlbar">
     <input name="buttonExecute" onclick="executeCode()" type="button" value="▶ Run" class="button"/>
     <input name="buttonExecute" onclick="moveLessonBack()" type="button" value="<" class="button"/>
     <span id="lessonCounter">1</span>
-    <input name="buttonExecute" onclick="moveLessonForward()" type="button" value=">" class="button"/>
+    <input id="forward-button" name="buttonExecute" onclick="moveLessonForward()" type="button" value=">" class="button"/>
 
   </div>
 
-  <div style="position: absolute; right: 50px; top: 350px;">
+  <div style="position: absolute; right: 0px; top: 350px;">
     <input name="buttonSwap" onclick="swapCode()" type="button" value="Swap" class="button"/>
   </div>
 
@@ -67,12 +69,12 @@
   var visibleCode;
   var backendCode;
   firebase.database().ref(key).once('value').then(function(snapshot) {
-    title = snapshot.val().title;
+    title = snapshot.val()[0].title;
 
-    visibleCode = snapshot.val().visibleCode;
+    visibleCode = snapshot.val()[0].visibleCode;
     editor.setValue(visibleCode);
 
-    backendCode = snapshot.val().backendCode;
+    backendCode = snapshot.val()[0].backendCode;
 
     $( "#instructions" ).html(title);
     executeCode();
@@ -84,17 +86,18 @@
 
   function swapCode() {
     if (displayingFrontend) {
-      firebase.database().ref(key).update({ "visibleCode": editor.getValue()})
+      firebase.database().ref(key + "/0").update({ "visibleCode": editor.getValue()})
       visibleCode = editor.getValue();
       editor.setValue(backendCode)
+      $("#code-identifier").html("Backend Code");
       displayingFrontend = false;
     } else {
-      firebase.database().ref(key).update({ "backendCode": editor.getValue()})
+      firebase.database().ref(key + "/0").update({ "backendCode": editor.getValue()})
       backendCode = editor.getValue();
       editor.setValue(visibleCode);
+      $("#code-identifier").html("Visible Code");
       displayingFrontend = true;
     }
-
   }
 </script>
 

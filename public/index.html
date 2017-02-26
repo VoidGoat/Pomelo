@@ -8,13 +8,13 @@
   <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase-database.js"></script>
   <script src="js/initFirebase.js"></script>
 
+  <script src="js/helper.js"></script>
 
+  <script src="js/jQuery.js"></script>
 
   <script src="js/codemirror.js"></script>
   <script src="mode/javascript/javascript.js"></script>
-  <script src="js/jQuery.js"></script>
   <script type="text/javascript" src="js/lessons.js"></script>
-  <script src="js/helper.js"></script>
 
 
   <link rel="stylesheet" href="css/codemirror.css">
@@ -61,11 +61,18 @@
 
     function createLesson() {
       var key = firebase.database().ref().push().key;
-      firebase.database().ref(key).set({
+      firebase.database().ref(key).set([{
         "title": $("#create-text-box").val(),
         "visibleCode": "//this is the code visible to a user",
-        "backendCode": 'console.log("its working")'
-      })
+        "backendCode": '//this is the code that runs but is not seen'
+      },
+      {
+      "title": $("#create-text-box").val(),
+      "visibleCode": "//this is the code visible to a user",
+      "backendCode": '//this is the code that runs but is not seen'
+      },
+
+    ])
       location.href = "editLesson.html?key=" + key;
     }
     function closeDialogue() {

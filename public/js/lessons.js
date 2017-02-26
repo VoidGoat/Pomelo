@@ -13,26 +13,71 @@ var lessons = {
   ]
 };
 
-var currentLesson = lessons.GamesWithJS;
+if (parseURLParams(window.location.href) === undefined) {
+
+} else {
+  var key = parseURLParams(window.location.href).key[0];
+}
+
 var lessonIndex = 0;
+var currentLesson;
+
+firebase.database().ref(key).once('value').then(function(snapshot) {
+
+  currentLesson = snapshot.val();
+  console.log(currentLesson);
+  title = snapshot.val()[lessonIndex].title;
+
+  visibleCode = snapshot.val()[lessonIndex].visibleCode;
+  editor.setValue(visibleCode);
+
+  backendCode = snapshot.val()[lessonIndex].backendCode;
+
+  $( "#instructions" ).html(title);
+  executeCode();
+});
+
 
 function moveLessonForward() {
   if (lessonIndex < currentLesson.length - 1) {
     lessonIndex++;
     updatePage();
+    if (lessonIndex >= currentLesson.length - 1 ) {
+      $("#forward-button").val("+");
+    } else {
+      $("#forward-button").val(">");
+    }
+  } else {
+    console.log("hi");
+    firebase.database().ref(key + "/" + currentLesson.length).set({
+      "title": "",
+      "visibleCode": "//this is the code visible to a user",
+      "backendCode": '//this is the code that runs but is not seen'
+    });
+    firebase.database().ref(key).once('value').then(function(snapshot) {
+
+      currentLesson = snapshot.val();
+      console.log("hi");
+      lessonIndex++;
+      updatePage();
+    });
+
   }
 }
 function moveLessonBack() {
   if (lessonIndex > 0) {
     lessonIndex--;
+    $("#forward-button").val(">");
     updatePage();
   }
 }
 function updatePage() {
   clearCanvas();
-
-  $( "#instructions" ).html(lessons.GamesWithJS[lessonIndex].text);
-  editor.setValue(lessons.GamesWithJS[lessonIndex].visibleCode);
-  $("#lessonCounter").html(lessonIndex + 1);
+  $( "#instructions" ).html(currentLesson[lessonIndex].text);
+  editor.setValue(currentLesson[lessonIndex].visibleCode);
+   $("#lessonCounter").html(lessonIndex + 1);
   executeCode();
+  // $( "#instructions" ).html(lessons.GamesWithJS[lessonIndex].text);
+  // editor.setValue(lessons.GamesWithJS[lessonIndex].visibleCode);
+  // $("#lessonCounter").html(lessonIndex + 1);
 }
