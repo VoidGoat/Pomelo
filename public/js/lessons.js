@@ -40,6 +40,14 @@ firebase.database().ref(key).once('value').then(function(snapshot) {
 
 function moveLessonForward() {
   if (lessonIndex < currentLesson.length - 1) {
+    if (displayingFrontend) {
+      console.log("forward");
+      firebase.database().ref(key + "/" + lessonIndex).update({ "visibleCode": editor.getValue()});
+      currentLesson[lessonIndex].visibleCode = editor.getValue();
+    } else {
+      firebase.database().ref(key + "/" + lessonIndex).update({ "backendCode": editor.getValue()});
+      currentLesson[lessonIndex].backendCode = editor.getValue();
+    }
     lessonIndex++;
     updatePage();
     if (lessonIndex >= currentLesson.length - 1 ) {
@@ -51,13 +59,12 @@ function moveLessonForward() {
     console.log("hi");
     firebase.database().ref(key + "/" + currentLesson.length).set({
       "title": "",
-      "visibleCode": "//this is the code visible to a user",
+      "visibleCode": "//this is the code visible to a user ",
       "backendCode": '//this is the code that runs but is not seen'
     });
     firebase.database().ref(key).once('value').then(function(snapshot) {
 
       currentLesson = snapshot.val();
-      console.log("hi");
       lessonIndex++;
       updatePage();
     });
@@ -66,6 +73,14 @@ function moveLessonForward() {
 }
 function moveLessonBack() {
   if (lessonIndex > 0) {
+    if (displayingFrontend) {
+      console.log("back");
+      firebase.database().ref(key + "/" + lessonIndex).update({ "visibleCode": editor.getValue()});
+      currentLesson[lessonIndex].visibleCode = editor.getValue();
+    } else {
+      firebase.database().ref(key + "/" + lessonIndex).update({ "backendCode": editor.getValue()});
+      currentLesson[lessonIndex].backendCode = editor.getValue();
+    }
     lessonIndex--;
     $("#forward-button").val(">");
     updatePage();
@@ -74,7 +89,11 @@ function moveLessonBack() {
 function updatePage() {
   clearCanvas();
   $( "#instructions" ).html(currentLesson[lessonIndex].text);
-  editor.setValue(currentLesson[lessonIndex].visibleCode);
+  if (displayingFrontend) {
+    editor.setValue(currentLesson[lessonIndex].visibleCode);
+  } else {
+    editor.setValue(currentLesson[lessonIndex].backendCode);
+  }
    $("#lessonCounter").html(lessonIndex + 1);
   executeCode();
   // $( "#instructions" ).html(lessons.GamesWithJS[lessonIndex].text);

@@ -78,6 +78,11 @@
 
     $( "#instructions" ).html(title);
     executeCode();
+    if (snapshot.val().length == 1) {
+      $("#forward-button").val("+");
+    } else {
+      $("#forward-button").val(">");
+    }
   });
 
 
