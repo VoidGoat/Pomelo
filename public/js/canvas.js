@@ -6,11 +6,13 @@ function executeCode() {
   try {
     clearCanvas();
     if (displayingFrontend) {
-      eval(editor.getValue());
-      eval(backendCode);
+
+      // eval(backendCode);
+      eval(editor.getValue() + backendCode + "\n");
+
     } else {
-      eval(editor.getValue());
-      eval(visibleCode);
+      eval(editor.getValue() + "\n" + visibleCode );
+      // eval(visibleCode);
     }
   } catch (e) {
     if (e instanceof SyntaxError) {

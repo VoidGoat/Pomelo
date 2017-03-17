@@ -91,15 +91,17 @@
 
   function swapCode() {
     if (displayingFrontend) {
-      firebase.database().ref(key + "/0").update({ "visibleCode": editor.getValue()})
+      console.log(key + "/" + lessonIndex);
+      firebase.database().ref(key + "/" + lessonIndex).update({ "visibleCode": editor.getValue()})
       visibleCode = editor.getValue();
-      editor.setValue(backendCode)
+      editor.setValue(currentLesson[lessonIndex].backendCode)
       $("#code-identifier").html("Backend Code");
       displayingFrontend = false;
     } else {
-      firebase.database().ref(key + "/0").update({ "backendCode": editor.getValue()})
+      console.log(key + "/" + lessonIndex);
+      firebase.database().ref(key + "/" + lessonIndex).update({ "backendCode": editor.getValue()})
       backendCode = editor.getValue();
-      editor.setValue(visibleCode);
+      editor.setValue(currentLesson[lessonIndex].visibleCode);
       $("#code-identifier").html("Visible Code");
       displayingFrontend = true;
     }

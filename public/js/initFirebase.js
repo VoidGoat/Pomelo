@@ -9,8 +9,5 @@ var config = {
 // firebase.initializeApp(config);
 // Initialize the default app
 var app = firebase.initializeApp(config);
-
-console.log(app.name);  // "[DEFAULT]"
-
 // You can retrieve services via the defaultApp variable...
 var defaultDatabase = app.database();

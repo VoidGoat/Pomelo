@@ -25,7 +25,6 @@ var currentLesson;
 firebase.database().ref(key).once('value').then(function(snapshot) {
 
   currentLesson = snapshot.val();
-  console.log(currentLesson);
   title = snapshot.val()[lessonIndex].title;
 
   visibleCode = snapshot.val()[lessonIndex].visibleCode;
@@ -41,7 +40,6 @@ firebase.database().ref(key).once('value').then(function(snapshot) {
 function moveLessonForward() {
   if (lessonIndex < currentLesson.length - 1) {
     if (displayingFrontend) {
-      console.log("forward");
       firebase.database().ref(key + "/" + lessonIndex).update({ "visibleCode": editor.getValue()});
       currentLesson[lessonIndex].visibleCode = editor.getValue();
     } else {
@@ -50,18 +48,23 @@ function moveLessonForward() {
     }
     lessonIndex++;
     updatePage();
+    firebase.database().ref(key + "/" + lessonIndex).on('value', function(snapshot) {
+
+    });
+
+
     if (lessonIndex >= currentLesson.length - 1 ) {
       $("#forward-button").val("+");
     } else {
       $("#forward-button").val(">");
     }
   } else {
-    console.log("hi");
     firebase.database().ref(key + "/" + currentLesson.length).set({
       "title": "",
       "visibleCode": "//this is the code visible to a user ",
       "backendCode": '//this is the code that runs but is not seen'
     });
+
     firebase.database().ref(key).once('value').then(function(snapshot) {
 
       currentLesson = snapshot.val();
@@ -74,7 +77,6 @@ function moveLessonForward() {
 function moveLessonBack() {
   if (lessonIndex > 0) {
     if (displayingFrontend) {
-      console.log("back");
       firebase.database().ref(key + "/" + lessonIndex).update({ "visibleCode": editor.getValue()});
       currentLesson[lessonIndex].visibleCode = editor.getValue();
     } else {
@@ -99,4 +101,8 @@ function updatePage() {
   // $( "#instructions" ).html(lessons.GamesWithJS[lessonIndex].text);
   // editor.setValue(lessons.GamesWithJS[lessonIndex].visibleCode);
   // $("#lessonCounter").html(lessonIndex + 1);
+}
+
+function saveCode() {
+
 }
