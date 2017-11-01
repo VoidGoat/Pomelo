@@ -29,8 +29,10 @@ canvas {
 }
 .edit-instructions {
   resize: none;
-  width: 100%;
+  width: calc(100% - 5px);
   height: 200px;
+  border-right: none;
+  border-left: none;
 }
 
 .CodeMirror {

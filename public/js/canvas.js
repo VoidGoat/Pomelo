@@ -8,10 +8,10 @@ function executeCode() {
     if (displayingFrontend) {
 
       // eval(backendCode);
-      eval(editor.getValue() + backendCode + "\n");
+      eval(currentLesson[lessonIndex].backendCode + "\n" + editor.getValue());
 
     } else {
-      eval(editor.getValue() + "\n" + visibleCode );
+      eval(editor.getValue() + "\n" + currentLesson[lessonIndex].visibleCode );
       // eval(visibleCode);
     }
   } catch (e) {

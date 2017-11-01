@@ -92,15 +92,15 @@
   function swapCode() {
     if (displayingFrontend) {
       console.log(key + "/" + lessonIndex);
-      firebase.database().ref(key + "/" + lessonIndex).update({ "visibleCode": editor.getValue()})
-      visibleCode = editor.getValue();
+      firebase.database().ref(key + "/" + lessonIndex).update({ "visibleCode": editor.getValue()});
+      currentLesson[lessonIndex].visibleCode = editor.getValue();
       editor.setValue(currentLesson[lessonIndex].backendCode)
       $("#code-identifier").html("Backend Code");
       displayingFrontend = false;
     } else {
       console.log(key + "/" + lessonIndex);
-      firebase.database().ref(key + "/" + lessonIndex).update({ "backendCode": editor.getValue()})
-      backendCode = editor.getValue();
+      firebase.database().ref(key + "/" + lessonIndex).update({ "backendCode": editor.getValue()});
+      currentLesson[lessonIndex].backendCode = editor.getValue();
       editor.setValue(currentLesson[lessonIndex].visibleCode);
       $("#code-identifier").html("Visible Code");
       displayingFrontend = true;

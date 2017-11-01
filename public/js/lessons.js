@@ -59,6 +59,13 @@ function moveLessonForward() {
       $("#forward-button").val(">");
     }
   } else {
+    if (displayingFrontend) {
+      firebase.database().ref(key + "/" + lessonIndex).update({ "visibleCode": editor.getValue()});
+      currentLesson[lessonIndex].visibleCode = editor.getValue();
+    } else {
+      firebase.database().ref(key + "/" + lessonIndex).update({ "backendCode": editor.getValue()});
+      currentLesson[lessonIndex].backendCode = editor.getValue();
+    }
     firebase.database().ref(key + "/" + currentLesson.length).set({
       "title": "",
       "visibleCode": "//this is the code visible to a user ",
